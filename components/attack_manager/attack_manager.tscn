@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b65w3a2mdtbkl"]
+
+[ext_resource type="Script" uid="uid://bfp57b330o8u1" path="res://components/attack_manager/AttackManager.cs" id="1_cx1hn"]
+
+[node name="AttackManager" type="Node3D"]
+script = ExtResource("1_cx1hn")
