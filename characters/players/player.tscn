@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b2515obhoa2t1"]
+[gd_scene load_steps=6 format=3 uid="uid://b2515obhoa2t1"]
 
 [ext_resource type="Script" uid="uid://dj3a444550k8y" path="res://characters/players/Player.cs" id="1_1tks2"]
+[ext_resource type="PackedScene" uid="uid://wqlsntwymmkx" path="res://components/attacks/gun/gun.tscn" id="2_yalo1"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_5ke3s"]
 
@@ -21,3 +22,6 @@ surface_material_override/0 = SubResource("StandardMaterial3D_dvkud")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("BoxShape3D_1tks2")
+
+[node name="Gun" parent="." instance=ExtResource("2_yalo1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

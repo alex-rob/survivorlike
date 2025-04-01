@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 project/assembly_name="Survivorlike"
 project/solution_directory="./"
 
+[global_group]
+
+enemy=""
+shootable=""
+
 [input]
 
 move_right={

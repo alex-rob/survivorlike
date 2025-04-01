@@ -4,12 +4,6 @@ using Survivorlike.components.attacks;
 
 namespace Survivorlike.components.attack_manager;
 
-struct TimedAttack
-{
-    public Attack Attack;
-    public Timer Timer;
-}
-
 public partial class AttackManager : Node3D
 {
     private List<Attack> _attacks = [];

@@ -23,6 +23,7 @@ public struct AttackProperties(AttackType type, float damage = 0f, float range =
 
 public abstract partial class Attack : Node
 {
+    [Export] private Timer _cooldownTimer;
     private AttackProperties _properties;
 
     public Attack(AttackProperties props)
