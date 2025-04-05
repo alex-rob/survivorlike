@@ -1,3 +1,6 @@
+using System;
+using static Survivorlike.libs.StarMath;
+
 namespace Survivorlike.libs;
 
 using Godot;
@@ -13,17 +16,18 @@ public static class ControlLib
      *
      * For the node parameter, the node calling the method should pass itself.
      */
-    public static Vector3 ScreenPointToRay(Node3D node)
+    private static Vector3 ScreenPointToRay(Node3D node)
     {
         // Get the current space state of the 3D world
         var spaceState = node.GetWorld3D().GetDirectSpaceState();
         
         // Need the mouse position on screen (x,y) and the camera Node
         var mousePos = node.GetViewport().GetMousePosition();
+        // GD.Print("mousePos = ", mousePos);
         var camera = node.GetTree().GetRoot().GetCamera3D();
         
         // Creating the ray, we first get the origin by projecting from the camera by the mousePos on screen...
-        var rayOrigin = camera.ProjectRayOrigin(mousePos);
+        var rayOrigin = camera.ProjectRayOrigin(mousePos); 
         // ... then, we project that to a ridiculous distance to make sure the ray hits something.
         var rayEnd = rayOrigin + camera.ProjectRayNormal(mousePos) * 2000;
 
@@ -36,13 +40,39 @@ public static class ControlLib
         return Vector3.Zero;
     }
 
-    public static Vector3 GetMouseShootTarget(Node3D node)
+    /// <summary>
+    /// Returns a vector along the line from the position that the mouse is pointing at to the
+    /// mouse itself in global space as relative to the active Camera3D. If <paramref name="targetY"/>
+    /// is zero, just returns the mouse pointing position. May behave strangely if the position the
+    /// mouse points at does not have a Y component of zero.
+    /// </summary>
+    /// <param name="node">Reference point node</param>
+    /// <param name="targetY">Y component of the vector to be returned</param>
+    /// <returns>Vector3 of the point along the line at the given height</returns>
+    public static Vector3 MouseTargetAtHeight(Node3D node, float targetY = 0f)
     {
         // Get the global mouse position: https://www.youtube.com/watch?v=jvxeHSotKpg
-        Vector3 mousePointPos = ScreenPointToRay(node);
+        var mousePointPos = ScreenPointToRay(node);
         
-        // Add the current global Y transform to the mouse point position
-        float worldHeight = node.GlobalPosition.Y;
-        return new Vector3(mousePointPos.X, mousePointPos.Y + worldHeight, mousePointPos.Z);
+        // If targetY is zero then we can skip executing the rest of the function
+        if (targetY == 0f) return mousePointPos;
+        
+        // Need the camera to get the ray origin of the mouse position
+        var camera = node.GetTree().GetRoot().GetCamera3D();
+
+        // Get the positions relating to the mouse pointing on screen.
+        var mousePosOnScreen = node.GetViewport().GetMousePosition();
+        var mouseVector = camera.ProjectRayOrigin(mousePosOnScreen);
+
+        // Get the vector from the pointing position to the position of mouse relative to camera in global space
+        var targetToMouse = mouseVector - mousePointPos;
+        // Doing cartesian form shenanigans, we know our targetY already so we can solve for lambda
+        var lambda = (targetY - mousePointPos.Y) / targetToMouse.Y;
+
+        // Fill in the rest to solve for X and Z
+        var targetX = mousePointPos.X + lambda * targetToMouse.X;
+        var targetZ = mousePointPos.Z + lambda * targetToMouse.Z;
+        
+        return new Vector3(targetX, targetY, targetZ);
     }
 }

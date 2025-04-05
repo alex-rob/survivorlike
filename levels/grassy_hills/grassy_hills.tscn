@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://85phax2ota5w"]
+
+[ext_resource type="Script" uid="uid://34wj5bddiwud" path="res://levels/grassy_hills/GrassyHills.cs" id="1_3bake"]
+[ext_resource type="PackedScene" uid="uid://c0pbdra85opq8" path="res://tiles/desertTile/desert_tile.tscn" id="2_n0m74"]
+[ext_resource type="PackedScene" uid="uid://b2515obhoa2t1" path="res://characters/players/player.tscn" id="3_ry05o"]
+[ext_resource type="PackedScene" uid="uid://bgan0g33br6pp" path="res://characters/enemies/dummy/dummy.tscn" id="4_vx6o7"]
+
+[node name="GrassyHills" type="Node3D"]
+script = ExtResource("1_3bake")
+
+[node name="Level1" parent="." instance=ExtResource("2_n0m74")]
+
+[node name="Player" parent="." node_paths=PackedStringArray("Camera") instance=ExtResource("3_ry05o")]
+Camera = NodePath("../Camera3D")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.486973, -0.822626, 0.293502, 0.117816, 0.394836, 0.911166, -0.865434, -0.409134, 0.289193, 0, 11, 0)
+shadow_enabled = true
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.5, 0.866025, 0, -0.866025, 0.5, 0, 11, 6.4584)
+projection = 1
+size = 20.0
+
+[node name="Dummy" parent="." instance=ExtResource("4_vx6o7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 0, -8)

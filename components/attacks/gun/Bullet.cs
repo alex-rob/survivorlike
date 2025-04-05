@@ -1,17 +1,25 @@
 using Godot;
 using static Survivorlike.libs.DebugLib;
+using static Survivorlike.libs.EntityLib;
 
 namespace Survivorlike.components.attacks.gun;
 
 public partial class Bullet() : Area3D
 {
-    private float _travelSpeed = 35f;
-    private float _damage = 10f;
+    [Export] private float _travelSpeed = 35f;
+    [Export] private float _damage = 10f;
+    [Export] private float _timeToKill = 10f;
     private Node _parentNode;
 
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
+        // AttachKillTimer(this, _timeToKill);
+        AttachTimedEvent(this, _timeToKill, () =>
+        {
+            DebugPrintStr("Bullet removed");
+            QueueFree();
+        });
     }
 
     public override void _PhysicsProcess(double delta)
