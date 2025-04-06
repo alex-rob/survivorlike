@@ -54,4 +54,15 @@ public static class EntityLib
         
         return nearest;
     }
+
+    public static void FindAllChildrenOfClass<T>(Node parent, ref List<T> nodes) where T : Node3D
+    {
+        if (parent is T node3D)
+            nodes.Add(node3D);
+        
+        foreach (Node child in parent.GetChildren())
+        {
+            FindAllChildrenOfClass(child, ref nodes);
+        }
+    }
 }

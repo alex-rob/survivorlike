@@ -1,0 +1,197 @@
+{
+  "main": {
+    "id": "492b7b090c5011c4",
+    "type": "split",
+    "children": [
+      {
+        "id": "c9c86090942f463b",
+        "type": "tabs",
+        "dimension": 69.60659898477158,
+        "children": [
+          {
+            "id": "3d60997bef1e2d25",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Programming Concepts/where T constraint.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "where T constraint"
+            }
+          }
+        ]
+      },
+      {
+        "id": "a58f7130418876e9",
+        "type": "tabs",
+        "dimension": 30.393401015228427,
+        "children": [
+          {
+            "id": "0a41c7ae409276fd",
+            "type": "leaf",
+            "pinned": true,
+            "state": {
+              "type": "graph",
+              "state": {},
+              "pinned": true,
+              "icon": "lucide-git-fork",
+              "title": "Graph view"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "307dc9714aff0ba1",
+    "type": "split",
+    "children": [
+      {
+        "id": "c28737d0f02cefe0",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4e9e01e952bc3246",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-folder-closed",
+              "title": "Files"
+            }
+          },
+          {
+            "id": "34467120e7c743df",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              },
+              "icon": "lucide-search",
+              "title": "Search"
+            }
+          },
+          {
+            "id": "9003d062d3a2afb8",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {},
+              "icon": "lucide-bookmark",
+              "title": "Bookmarks"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "d891ed9fdd7d7d33",
+    "type": "split",
+    "children": [
+      {
+        "id": "7bf58f8b4961c204",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "1911f892721f8401",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "Programming Concepts/where T constraint.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-coming-in",
+              "title": "Backlinks for where T constraint"
+            }
+          },
+          {
+            "id": "fa59a5063b2386fc",
+            "type": "leaf",
+            "state": {
+              "type": "outgoing-link",
+              "state": {
+                "file": "Programming Concepts/where T constraint.md",
+                "linksCollapsed": false,
+                "unlinkedCollapsed": true
+              },
+              "icon": "links-going-out",
+              "title": "Outgoing links from where T constraint"
+            }
+          },
+          {
+            "id": "0774d1cc6718ac6e",
+            "type": "leaf",
+            "state": {
+              "type": "tag",
+              "state": {
+                "sortOrder": "frequency",
+                "useHierarchy": true
+              },
+              "icon": "lucide-tags",
+              "title": "Tags"
+            }
+          },
+          {
+            "id": "10ac49e64784320d",
+            "type": "leaf",
+            "state": {
+              "type": "outline",
+              "state": {
+                "file": "Programming Concepts/where T constraint.md"
+              },
+              "icon": "lucide-list",
+              "title": "Outline of where T constraint"
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "daily-notes:Open today's daily note": false,
+      "templates:Insert template": false,
+      "command-palette:Open command palette": false
+    }
+  },
+  "active": "4e9e01e952bc3246",
+  "lastOpenFiles": [
+    "Pasted Images/Pasted image 20250406102408.png.import",
+    "Pasted Images",
+    "Pasted Images/Pasted image 20250406102408.png",
+    "Programming Concepts/General Programming Concepts.md",
+    "Programming Concepts/where T constraint.md",
+    "EntityLib.md",
+    "Untitled/EntityLib",
+    "Programming Concepts",
+    "Welcome.md"
+  ]
+}

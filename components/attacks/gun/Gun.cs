@@ -12,7 +12,6 @@ public partial class Gun : Weapon
     [Export] private Timer _cooldownTimer;
     [Export] private PackedScene _bulletScene;
     private Bullet _bullet; // could be that this needs to be simplified to Area3D
-    public Vector3 Target {get; set;}
     
     
     
@@ -20,18 +19,20 @@ public partial class Gun : Weapon
     public override void _Ready()
     {
         // Attach shoot method to cooldown timeout event
-        _cooldownTimer.Timeout += () => LaunchAttack(Target);
-        Target = Vector3.Zero;
+        _cooldownTimer.Timeout += LaunchAttack;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
+        
     }
 
     // Shoot a bullet towards the target
-    public override void LaunchAttack(Vector3 target)
+    public override void LaunchAttack()
     {
+        Vector3 target;
+        
         // Instantiate a bullet
         Bullet bullet = _bulletScene.Instantiate<Bullet>();
         bullet.Init(GetParent());
@@ -41,6 +42,17 @@ public partial class Gun : Weapon
         
         // Set the velocity vector and position
         bullet.SetGlobalPosition(GetGlobalPosition());
-        bullet.LookAt(Target);
+
+        if (AutoAim && AutoAimTarget != null)
+        {
+            target = AutoAimTarget.GetGlobalPosition();
+            target.Y = GetGlobalPosition().Y;
+        }
+        else
+        {
+            target = MouseTargetAtHeight(this, GetGlobalPosition().Y);
+        }
+        
+        bullet.LookAt(target);
     }
 }

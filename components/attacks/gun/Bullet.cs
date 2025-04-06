@@ -14,12 +14,7 @@ public partial class Bullet() : Area3D
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
-        // AttachKillTimer(this, _timeToKill);
-        AttachTimedEvent(this, _timeToKill, () =>
-        {
-            DebugPrintStr("Bullet removed");
-            QueueFree();
-        });
+        AttachKillTimer(this, _timeToKill);
     }
 
     public override void _PhysicsProcess(double delta)
@@ -35,16 +30,15 @@ public partial class Bullet() : Area3D
         // Escape if contact is with parent
         if (node == _parentNode) return;
 
-        if (node.IsInGroup("shootable"))
+        if (!node.IsInGroup("shootable")) return;
+        
+        if (node.IsInGroup("enemy"))
         {
-            if (node.IsInGroup("enemy"))
-            {
-                // call the enemy's hurt function passing the damage component of the bullet
-            }
-            
-            DebugPrintStr("Bullet hit enemy");
-            QueueFree();
+            // call the enemy's hurt function passing the damage component of the bullet
         }
+            
+        DebugPrintStr("Bullet hit enemy");
+        QueueFree();
     }
 
     public void Init(Node parentNode)
