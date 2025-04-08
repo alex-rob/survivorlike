@@ -49,7 +49,12 @@ public static class EntityLib
         foreach (Node3D node in nodes)
         {
             var nodePos = node.GetGlobalPosition();
-            if (nodePos.DistanceTo(targetPos) < minDist) nearest = node;
+            var dist = nodePos.DistanceTo(targetPos);
+            if (dist < minDist)
+            {
+                nearest = node;
+                minDist = dist;
+            }
         }
         
         return nearest;

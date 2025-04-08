@@ -11,9 +11,7 @@ public partial class Gun : Weapon
 {
     [Export] private Timer _cooldownTimer;
     [Export] private PackedScene _bulletScene;
-    private Bullet _bullet; // could be that this needs to be simplified to Area3D
-    
-    
+    private Bullet _bullet;
     
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
@@ -29,7 +27,7 @@ public partial class Gun : Weapon
     }
 
     // Shoot a bullet towards the target
-    public override void LaunchAttack()
+    protected override void LaunchAttack()
     {
         Vector3 target;
         
@@ -54,5 +52,6 @@ public partial class Gun : Weapon
         }
         
         bullet.LookAt(target);
+        base.LaunchAttack();
     }
 }

@@ -22,6 +22,14 @@ public partial class Player : CharacterBody3D
     public override void _Ready()
     {
         FindAllChildrenOfClass(this, ref _weapons);
+
+
+        foreach (Weapon w in _weapons)
+        {
+            w.ShotFired += (atk) => atk.Init(this);
+        }
+        
+        
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

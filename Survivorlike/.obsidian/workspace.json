@@ -6,7 +6,7 @@
       {
         "id": "c9c86090942f463b",
         "type": "tabs",
-        "dimension": 69.60659898477158,
+        "dimension": 58.81979695431472,
         "children": [
           {
             "id": "3d60997bef1e2d25",
@@ -21,13 +21,40 @@
               "icon": "lucide-file",
               "title": "where T constraint"
             }
+          },
+          {
+            "id": "05ba1bd042e15b44",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.9"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.9"
+            }
+          },
+          {
+            "id": "a200fd2d09630d7f",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "RigidBody3D.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "RigidBody3D"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       },
       {
         "id": "a58f7130418876e9",
         "type": "tabs",
-        "dimension": 30.393401015228427,
+        "dimension": 41.18020304568528,
         "children": [
           {
             "id": "0a41c7ae409276fd",
@@ -60,7 +87,8 @@
             "state": {
               "type": "file-explorer",
               "state": {
-                "sortOrder": "alphabetical"
+                "sortOrder": "alphabetical",
+                "autoReveal": false
               },
               "icon": "lucide-folder-closed",
               "title": "Files"
@@ -182,8 +210,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4e9e01e952bc3246",
+  "active": "a200fd2d09630d7f",
   "lastOpenFiles": [
+    "PhysicsBody3D types.md",
+    "RigidBody3D.md",
     "Pasted Images/Pasted image 20250406102408.png.import",
     "Pasted Images",
     "Pasted Images/Pasted image 20250406102408.png",

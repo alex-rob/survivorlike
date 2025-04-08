@@ -6,7 +6,12 @@ public partial class Weapon : Node3D
 {
     public bool AutoAim { get; set; }
     public Node3D AutoAimTarget { get; set; }
+    private FriendlyAttack _attack;
+    
+    [Signal] public delegate void ShotFiredEventHandler(FriendlyAttack attack);
 
-    public virtual void LaunchAttack()
-    { }
+    protected virtual void LaunchAttack()
+    {
+        EmitSignalShotFired(_attack);
+    }
 }
