@@ -12,6 +12,6 @@ public partial class Weapon : Node3D
 
     protected virtual void LaunchAttack()
     {
-        EmitSignalShotFired(_attack);
+        
     }
 }

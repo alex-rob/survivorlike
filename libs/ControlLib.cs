@@ -7,6 +7,8 @@ using Godot;
 
 public static class ControlLib
 {
+    public const float PlayerVelocityAffectProjectiles = 0.1f;
+    
     /*
      * ScreenPointToRay(node) : Vector3
      *
@@ -74,5 +76,19 @@ public static class ControlLib
         var targetZ = mousePointPos.Z + lambda * targetToMouse.Z;
         
         return new Vector3(targetX, targetY, targetZ);
+    }
+
+    /// <summary>
+    /// This method is useful for calculating approximate travel time in a straight line from one node
+    /// to a target
+    /// </summary>
+    /// <param name="nodePos"></param>
+    /// <param name="targetPos"></param>
+    /// <param name="travelSpeed"></param>
+    /// <returns></returns>
+    public static float TimeToTarget(Vector3 nodePos, Vector3 targetPos, float travelSpeed)
+    {
+        var distance = (targetPos - nodePos).Length();
+        return distance / travelSpeed;
     }
 }

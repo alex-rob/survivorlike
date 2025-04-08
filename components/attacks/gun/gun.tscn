@@ -9,4 +9,5 @@ _cooldownTimer = NodePath("Cooldown")
 _bulletScene = ExtResource("2_6n08b")
 
 [node name="Cooldown" type="Timer" parent="."]
+wait_time = 0.25
 autostart = true

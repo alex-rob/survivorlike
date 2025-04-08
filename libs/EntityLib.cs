@@ -60,6 +60,15 @@ public static class EntityLib
         return nearest;
     }
 
+    /// <summary>
+    /// Finds all nodes recursively that match class type <typeparamref name="T"/>,
+    /// starting with the <paramref name="parent"/> node. Nodes that are of
+    /// class type <typeparamref name="T"/> are placed in the <paramref name="nodes"/>
+    /// list.
+    /// </summary>
+    /// <param name="parent">First node to check recursively</param>
+    /// <param name="nodes">Array to add the nodes to</param>
+    /// <typeparam name="T">Class type of node to check for</typeparam>
     public static void FindAllChildrenOfClass<T>(Node parent, ref List<T> nodes) where T : Node3D
     {
         if (parent is T node3D)

@@ -1,24 +1,30 @@
 using Godot;
 using static Survivorlike.libs.DebugLib;
 using static Survivorlike.libs.EntityLib;
+using static Survivorlike.libs.ControlLib;
 
 namespace Survivorlike.components.attacks.gun;
 
-public partial class Bullet() : FriendlyAttack
+public partial class Bullet : FriendlyAttack
 {
-    [Export] private float _travelSpeed = 35f;
+    [Export] public float TravelSpeed = 35f;
     [Export] private float _damage = 10f;
     [Export] private float _timeToKill = 10f;
+
+    private Vector3 _velocity = Vector3.Forward;
+    private Vector3 _originVelocity = Vector3.Zero;
 
     public override void _Ready()
     {
         BodyEntered += OnBodyEntered;
         AttachKillTimer(this, _timeToKill);
+
+        _velocity *= TravelSpeed;
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        TranslateObjectLocal(Vector3.Forward * _travelSpeed * (float)delta);
+        TranslateObjectLocal(_velocity * (float)delta);
     }
     
     // remember to figure out all the ways in which we would need to remove this from the tree.
@@ -40,9 +46,15 @@ public partial class Bullet() : FriendlyAttack
         QueueFree();
     }
 
-    public override void Init(Node parentNode)
+    public override void Init(CharacterBody3D parentNode)
     {
-        // TODO add all the velocity init stuff here, add parent velocity to this velocity
+        var parentVelocity = parentNode.Velocity * PlayerVelocityAffectProjectiles;
+        var angle = Rotation.Y;
+
+        parentVelocity = parentVelocity.Rotated(Vector3.Up, angle);
+        
+        _velocity += parentVelocity;
+        
         base.Init(parentNode);
     }
     

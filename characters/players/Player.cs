@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Godot;
 using Survivorlike.components.attacks;
@@ -10,7 +9,7 @@ public partial class Player : CharacterBody3D
 {
     [Export] private int Speed { get; set; } = 14;
     [Export] private Camera3D Camera { get; set; }
-
+    
     private List<Weapon> _weapons = [];
     private bool _autoAim;
 

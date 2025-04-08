@@ -1,4 +1,6 @@
+using System;
 using Godot;
+using Survivorlike.characters.players;
 using static Survivorlike.libs.ControlLib;
 
 namespace Survivorlike.components.attacks.gun;
@@ -11,9 +13,9 @@ public partial class Gun : Weapon
 {
     [Export] private Timer _cooldownTimer;
     [Export] private PackedScene _bulletScene;
-    private Bullet _bullet;
     
     // Called when the node enters the scene tree for the first time.
+    // TODO move this up to Weapon
     public override void _Ready()
     {
         // Attach shoot method to cooldown timeout event
@@ -33,7 +35,8 @@ public partial class Gun : Weapon
         
         // Instantiate a bullet
         Bullet bullet = _bulletScene.Instantiate<Bullet>();
-        bullet.Init(GetParent());
+
+        if (GetParent() is not Player player) throw new Exception("Parent node is null or is not a Player node");
         
         // Add the bullet to the tree
         GetTree().Root.AddChild(bullet);
@@ -44,6 +47,7 @@ public partial class Gun : Weapon
         if (AutoAim && AutoAimTarget != null)
         {
             target = AutoAimTarget.GetGlobalPosition();
+            // Offset by the inverse of the player's velocity scaled by the affect constant if the player is moving
             target.Y = GetGlobalPosition().Y;
         }
         else
@@ -51,7 +55,18 @@ public partial class Gun : Weapon
             target = MouseTargetAtHeight(this, GetGlobalPosition().Y);
         }
         
+        if (player.Velocity != Vector3.Zero)
+        {
+            var offset = player.Velocity * PlayerVelocityAffectProjectiles 
+                                         * TimeToTarget(GetGlobalPosition(), target, bullet.TravelSpeed);
+            target -= offset;
+        }
+        
         bullet.LookAt(target);
-        base.LaunchAttack();
+        
+        // Init happens after the LookAt so that we have the correct rotation of the node
+        bullet.Init(player);
+        
+        EmitSignalShotFired(bullet);
     }
 }
