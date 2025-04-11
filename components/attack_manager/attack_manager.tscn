@@ -1,6 +1,3 @@
-[gd_scene load_steps=2 format=3 uid="uid://b65w3a2mdtbkl"]
-
-[ext_resource type="Script" uid="uid://bfp57b330o8u1" path="res://components/attack_manager/AttackManager.cs" id="1_cx1hn"]
-
-[node name="AttackManager" type="Node3D"]
-script = ExtResource("1_cx1hn")
+version https://git-lfs.github.com/spec/v1
+oid sha256:7fce5dc8e3e07a3838c190eed59402487914a26e2304d6ccb81edaa0fcf6c7a1
+size 259

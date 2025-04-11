@@ -1,25 +1,3 @@
-[gd_scene load_steps=6 format=3 uid="uid://re8a0b5gpqf1"]
-
-[ext_resource type="Script" uid="uid://e33oq3kwqoge" path="res://components/attacks/gun/Bullet.cs" id="1_tw6l2"]
-[ext_resource type="Texture2D" uid="uid://h15shu6aw06s" path="res://textures/bullet.png" id="2_xd4uw"]
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_yvkk2"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tw6l2"]
-transparency = 1
-albedo_texture = ExtResource("2_xd4uw")
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f2bwe"]
-height = 1.68
-
-[node name="Bullet" type="Area3D"]
-script = ExtResource("1_tw6l2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1.19249e-08, 0, -1, 0, 1, 0, 1, 0, 1.19249e-08, 0, 0, 0)
-mesh = SubResource("PlaneMesh_yvkk2")
-surface_material_override/0 = SubResource("StandardMaterial3D_tw6l2")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 0, 0)
-shape = SubResource("CapsuleShape3D_f2bwe")
+version https://git-lfs.github.com/spec/v1
+oid sha256:2b74dec07c49c648f7e776f8be8833e7be6d6d9c234711bc49672613cb92555e
+size 1048

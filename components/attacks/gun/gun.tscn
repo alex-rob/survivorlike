@@ -1,13 +1,3 @@
-[gd_scene load_steps=3 format=3 uid="uid://wqlsntwymmkx"]
-
-[ext_resource type="Script" uid="uid://ba74kj67cc7fp" path="res://components/attacks/gun/Gun.cs" id="1_ksoux"]
-[ext_resource type="PackedScene" uid="uid://re8a0b5gpqf1" path="res://components/attacks/gun/bullet.tscn" id="2_6n08b"]
-
-[node name="Gun" type="Node3D" node_paths=PackedStringArray("_cooldownTimer")]
-script = ExtResource("1_ksoux")
-_cooldownTimer = NodePath("Cooldown")
-_bulletScene = ExtResource("2_6n08b")
-
-[node name="Cooldown" type="Timer" parent="."]
-wait_time = 0.25
-autostart = true
+version https://git-lfs.github.com/spec/v1
+oid sha256:7b0c167471dc91b8fc3d10ab99e1e4aba2fd8d20fc2c33ffb55bbc920bf1618e
+size 560

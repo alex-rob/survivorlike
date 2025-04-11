@@ -1,27 +1,3 @@
-[gd_scene load_steps=6 format=3 uid="uid://b2515obhoa2t1"]
-
-[ext_resource type="Script" uid="uid://dj3a444550k8y" path="res://characters/players/Player.cs" id="1_1tks2"]
-[ext_resource type="PackedScene" uid="uid://wqlsntwymmkx" path="res://components/attacks/gun/gun.tscn" id="2_yalo1"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_5ke3s"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dvkud"]
-albedo_color = Color(0, 1, 0, 1)
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_1tks2"]
-size = Vector3(1, 2, 1)
-
-[node name="Player" type="CharacterBody3D"]
-script = ExtResource("1_1tks2")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-mesh = SubResource("CapsuleMesh_5ke3s")
-surface_material_override/0 = SubResource("StandardMaterial3D_dvkud")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("BoxShape3D_1tks2")
-
-[node name="Gun" parent="." instance=ExtResource("2_yalo1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+version https://git-lfs.github.com/spec/v1
+oid sha256:5c6c21d69e4e6a3d3c3a15fda9461755d0d2c3a629ba8e082bb3c45d18f054ee
+size 1129
