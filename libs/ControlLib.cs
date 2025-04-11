@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using static Survivorlike.libs.StarMath;
 
 namespace Survivorlike.libs;
@@ -90,5 +91,27 @@ public static class ControlLib
     {
         var distance = (targetPos - nodePos).Length();
         return distance / travelSpeed;
+    }
+    
+    
+    public static List<Vector3> GetSpreadTargets(int num, float degSpread, Vector3 target)
+    {
+        float radSpread = DegToRad(degSpread);
+        List<Vector3> spreadTargets = [];
+        Vector3 axis = Vector3.Up; // Rotation around the Y axis
+
+        if (num == 0) return spreadTargets; // No targets means empty spread
+        
+        // If odd # of bullets, first target is the target. Otherwise, give negative half offset to the first bullet
+        spreadTargets.Add(num % 2 == 1 ? target : target.Rotated(axis, radSpread * -0.5f));
+
+        for (int i = 1; i < num; i++)
+        {
+            int factor = (i + 1) / 2;
+            if (i % 2 == 0) factor *= -1;
+            spreadTargets.Add(spreadTargets[0].Rotated(axis, radSpread * factor));
+        }
+        
+        return spreadTargets;
     }
 }

@@ -11,17 +11,8 @@ namespace Survivorlike.components.attacks.gun;
 /// </summary>
 public partial class Gun : Weapon
 {
-    [Export] private Timer _cooldownTimer;
-    [Export] private PackedScene _bulletScene;
+    private const float MultiBulletSpreadDeg = 10f; // Spread for multiple bullets in degrees
     
-    // Called when the node enters the scene tree for the first time.
-    // TODO move this up to Weapon
-    public override void _Ready()
-    {
-        // Attach shoot method to cooldown timeout event
-        _cooldownTimer.Timeout += LaunchAttack;
-    }
-
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta)
     {
@@ -32,17 +23,7 @@ public partial class Gun : Weapon
     protected override void LaunchAttack()
     {
         Vector3 target;
-        
-        // Instantiate a bullet
-        Bullet bullet = _bulletScene.Instantiate<Bullet>();
-
         if (GetParent() is not Player player) throw new Exception("Parent node is null or is not a Player node");
-        
-        // Add the bullet to the tree
-        GetTree().Root.AddChild(bullet);
-        
-        // Set the velocity vector and position
-        bullet.SetGlobalPosition(GetGlobalPosition());
 
         if (AutoAim && AutoAimTarget != null)
         {
@@ -54,19 +35,32 @@ public partial class Gun : Weapon
         {
             target = MouseTargetAtHeight(this, GetGlobalPosition().Y);
         }
-        
-        if (player.Velocity != Vector3.Zero)
+
+        var spreadTargets = GetSpreadTargets(Version, MultiBulletSpreadDeg, target);
+
+        // Create a bullet for each version of the weapon.
+        for (var i = 0; i < Version; i++)
         {
-            var offset = player.Velocity * PlayerVelocityAffectProjectiles 
-                                         * TimeToTarget(GetGlobalPosition(), target, bullet.TravelSpeed);
-            target -= offset;
+            // Instantiate a bullet
+            var bullet = AttackScene.Instantiate<Bullet>();
+            // Add the bullet to the tree
+            GetTree().Root.AddChild(bullet);
+            // Set the velocity vector and position
+            bullet.SetGlobalPosition(GetGlobalPosition());
+            
+            // TODO check this out a bit more. It doesn't feel quite right rn.
+            if (player.Velocity != Vector3.Zero)
+            {
+                var offset = player.Velocity * PlayerVelocityAffectProjectiles 
+                                             * TimeToTarget(GetGlobalPosition(), spreadTargets[i], bullet.TravelSpeed);
+                spreadTargets[i] -= offset;
+            }
+            
+            bullet.LookAt(spreadTargets[i]);
+            // Init happens after the LookAt so that we have the correct rotation of the node
+            bullet.Init(player);
+            
+            EmitSignalShotFired(bullet);
         }
-        
-        bullet.LookAt(target);
-        
-        // Init happens after the LookAt so that we have the correct rotation of the node
-        bullet.Init(player);
-        
-        EmitSignalShotFired(bullet);
     }
 }
