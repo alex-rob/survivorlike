@@ -94,22 +94,30 @@ public static class ControlLib
     }
     
     
-    public static List<Vector3> GetSpreadTargets(int num, float degSpread, Vector3 target)
+    public static List<Vector3> GetSpreadTargets(int num, float degSpread, Vector3 originGlobal, Vector3 targetGlobal)
     {
         float radSpread = DegToRad(degSpread);
         List<Vector3> spreadTargets = [];
         Vector3 axis = Vector3.Up; // Rotation around the Y axis
 
-        if (num == 0) return spreadTargets; // No targets means empty spread
+        if (num == 0) return spreadTargets; // No num means empty spread
         
-        // If odd # of bullets, first target is the target. Otherwise, give negative half offset to the first bullet
-        spreadTargets.Add(num % 2 == 1 ? target : target.Rotated(axis, radSpread * -0.5f));
+        var originToTarget = targetGlobal - originGlobal;
+        
+        // If odd # of bullets, first target is the original target. Otherwise, give negative half offset to the first bullet
+        spreadTargets.Add(num % 2 == 1 ? targetGlobal : originToTarget.Rotated(axis, radSpread * -0.5f) + originGlobal);
 
+        // keep a ref to the first target relative to the origin point
+        var originToTargetZero = spreadTargets[0] - originGlobal;
+        
         for (int i = 1; i < num; i++)
         {
+            // calculate the factor based on the number of projectiles in the spread
             int factor = (i + 1) / 2;
             if (i % 2 == 0) factor *= -1;
-            spreadTargets.Add(spreadTargets[0].Rotated(axis, radSpread * factor));
+            
+            // Rotate the target vector relative to the origin point and convert it back to global space
+            spreadTargets.Add(originToTargetZero.Rotated(axis, radSpread * factor) + originGlobal);
         }
         
         return spreadTargets;
