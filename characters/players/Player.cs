@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using Survivorlike.characters.enemies;
 using Survivorlike.components.attacks;
 using static Survivorlike.libs.EntityLib;
 
@@ -12,6 +13,7 @@ public partial class Player : CharacterBody3D
     
     private List<Weapon> _weapons = [];
     private bool _autoAim;
+    private EnemyEntity _autoAimTarget;
 
     
 
@@ -90,11 +92,25 @@ public partial class Player : CharacterBody3D
         MoveAndSlide();
     }
 
-    public void SetAutoAimTarget(Node3D target)
+    public void SetAutoAimTarget(EnemyEntity target)
     {
+        _autoAimTarget = target;
         foreach (Weapon w in _weapons)
         {
             w.AutoAimTarget = target;
         }
+
+        target.Death += () =>
+        {
+            
+            if (_autoAimTarget != target) return;
+            
+            _autoAimTarget = null;
+            foreach (Weapon w in _weapons)
+            {
+                w.AutoAimTarget = null;
+            }
+
+        };
     }
 }

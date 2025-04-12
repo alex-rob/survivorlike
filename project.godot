@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 project/assembly_name="Survivorlike"
 project/solution_directory="./"
 
+[editor]
+
+run/main_run_args="--verbose"
+
 [global_group]
 
 enemy=""

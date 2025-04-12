@@ -1,4 +1,5 @@
 using Godot;
+using Survivorlike.characters.enemies;
 using static Survivorlike.libs.DebugLib;
 using static Survivorlike.libs.EntityLib;
 using static Survivorlike.libs.ControlLib;
@@ -10,9 +11,11 @@ public partial class Bullet : FriendlyAttack
     [Export] public float TravelSpeed = 35f;
     [Export] private float _damage = 10f;
     [Export] private float _timeToKill = 10f;
-
+    
     private Vector3 _velocity = Vector3.Forward;
     private Vector3 _originVelocity = Vector3.Zero;
+
+    private string _originGroup;
 
     public override void _Ready()
     {
@@ -37,9 +40,10 @@ public partial class Bullet : FriendlyAttack
 
         if (!node.IsInGroup("shootable")) return;
         
-        if (node.IsInGroup("enemy"))
+        if (node.IsInGroup("enemy") && _originGroup != "enemy")
         {
             // call the enemy's hurt function passing the damage component of the bullet
+            ((EnemyEntity)node).TakeDamage(_damage);
         }
             
         DebugPrintStr("Bullet hit enemy");

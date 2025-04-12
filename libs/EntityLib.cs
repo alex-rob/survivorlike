@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Godot;
+using Survivorlike.characters.enemies;
 
 namespace Survivorlike.libs;
 
@@ -37,16 +38,16 @@ public static class EntityLib
     /// <param name="target">Node against which distance is checked</param>
     /// <param name="nodes">Nodes to find the distance to target</param>
     /// <returns>Node that is the nearest in distance to the target</returns>
-    public static Node3D FindNearestToTarget(Node3D target, List<Node3D> nodes)
+    public static EnemyEntity FindNearestEnemyToTarget(Node3D target, List<EnemyEntity> nodes)
     {
-        if (nodes == null) return target;
+        if (nodes == null) return null;
         
-        Node3D nearest = null;
+        EnemyEntity nearest = null;
         var targetPos = target.GetGlobalPosition();
 
         var minDist = float.MaxValue;
         
-        foreach (Node3D node in nodes)
+        foreach (var node in nodes)
         {
             var nodePos = node.GetGlobalPosition();
             var dist = nodePos.DistanceTo(targetPos);

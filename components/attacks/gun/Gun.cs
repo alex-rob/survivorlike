@@ -25,6 +25,8 @@ public partial class Gun : Weapon
         Vector3 target;
         if (GetParent() is not Player player) throw new Exception("Parent node is null or is not a Player node");
 
+        if (!IsInstanceValid(AutoAimTarget)) AutoAimTarget = null;
+
         if (AutoAim && AutoAimTarget != null)
         {
             target = AutoAimTarget.GetGlobalPosition();
