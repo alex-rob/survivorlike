@@ -1,6 +1,5 @@
 using Godot;
 using Survivorlike.components.health_component;
-using Survivorlike.levels;
 
 namespace Survivorlike.characters.enemies;
 
@@ -13,6 +12,11 @@ public abstract partial class EnemyEntity : CharacterBody3D
 {
     [Signal] public delegate void DeathEventHandler();
     private HealthComponent _healthComponent = new(Constants.MaxHealth);
+
+    public override void _ExitTree()
+    {
+        _healthComponent.QueueFree();
+    }
 
     public void TakeDamage(float damage)
     {
