@@ -24,11 +24,12 @@ public partial class Weapon : Node3D
         CooldownTimer.WaitTime = CooldownTime;
         CooldownTimer.Autostart = true;
         CooldownTimer.Timeout += LaunchAttack;
+        AddChild(CooldownTimer);
     }
 
     public override void _ExitTree()
     {
-        CooldownTimer.Free();
+        CooldownTimer.QueueFree();
     }
 
     protected Vector3 GetAimTarget()
@@ -54,5 +55,10 @@ public partial class Weapon : Node3D
     protected virtual void LaunchAttack()
     {
         
+    }
+
+    public void AddVersion(int version = 1)
+    {
+        Version += version;
     }
 }

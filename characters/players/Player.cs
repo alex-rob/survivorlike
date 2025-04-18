@@ -25,9 +25,10 @@ public partial class Player : CharacterBody3D
         FindAllChildrenOfClass(this, ref _weapons);
 
 
-        foreach (Weapon w in _weapons)
+        foreach (var w in _weapons)
         {
-            w.ShotFired += (atk) => atk.Init(this);
+            w.AddVersion(3); // Here for debugging increased versions
+            RegisterWeaponToPlayer(w);
         }
         
         
@@ -90,6 +91,13 @@ public partial class Player : CharacterBody3D
         // to the player for certain periods of time that each carry a movement altering effect.
         
         MoveAndSlide();
+    }
+
+    public void RegisterWeaponToPlayer(Weapon w)
+    {
+        if (w.GetParent() != this) AddChild(w);
+        w.ShotFired += (atk) => atk.Init(this);
+        w.SetPosition(new Vector3(0, 1, 0));
     }
 
     public void SetAutoAimTarget(EnemyEntity target)

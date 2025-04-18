@@ -1,12 +1,15 @@
 using Godot;
 using Survivorlike.characters.enemies;
+using static Survivorlike.libs.EntityLib;
 
 namespace Survivorlike.components.attacks.beam;
 
 public partial class Laser : FriendlyAttack
 {
-    private float _damage = 15f;
+    private float _damage = 6f;
     private float _timeToKill = 2f;
+    private float _hitScanBaudRate = 0.05f; // 20Hz scan rate @ 0.05s
+    private float _enemyHitCooldown = 0.2f; // 5Hz damage rate
     
     
     // Called when the node enters the scene tree for the first time.
@@ -14,10 +17,13 @@ public partial class Laser : FriendlyAttack
     {
         // Create a HitBaudRate timer to check for hits at a specified rate
         var hitBaudRateTimer = new Timer();
-        hitBaudRateTimer.WaitTime = 0.05f; // 20Hz scan rate
+        hitBaudRateTimer.WaitTime = _hitScanBaudRate;
         hitBaudRateTimer.Autostart = true;
         hitBaudRateTimer.Timeout += Scan;
         AddChild(hitBaudRateTimer);
+        
+        BodyEntered += OnBodyEntered;
+        AttachKillTimer(this, _timeToKill);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -57,13 +63,13 @@ public partial class Laser : FriendlyAttack
         }
     }
 
-    private static void AttachCooldownTimer(Node3D node)
+    private void AttachCooldownTimer(Node3D node)
     {
         var hitCooldown = new Timer();
         hitCooldown.Name = "LaserHitCooldown";
-        hitCooldown.WaitTime = 0.5f;
+        hitCooldown.WaitTime = _enemyHitCooldown;
         hitCooldown.Autostart = true;
-        hitCooldown.Timeout += () => hitCooldown.Free();
+        hitCooldown.Timeout += () => hitCooldown.QueueFree();
         node.AddChild(hitCooldown);
     }
 }

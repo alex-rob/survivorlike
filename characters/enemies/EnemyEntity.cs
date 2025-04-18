@@ -18,10 +18,24 @@ public abstract partial class EnemyEntity : CharacterBody3D
         _healthComponent.QueueFree();
     }
 
+    /// <summary>
+    /// Handles playing an animation when damage is taken. Base does nothing,
+    /// should be overridden by any inheriting class depending on desired
+    /// animation.
+    /// </summary>
+    protected virtual void PlayHurtAnimation()
+    {
+        
+    }
+
     public void TakeDamage(float damage)
     {
-        if (!_healthComponent.TakeDamage(damage)) return;
-        
-        EmitSignalDeath(); // TODO change this to some sort of animation or other stuff that needs to happen on death
+        if (!_healthComponent.TakeDamage(damage))
+        {
+            PlayHurtAnimation();
+            return;
+        }
+
+        EmitSignalDeath(); // TODO change this to some sort of animation or other stuff that needs to happen on death   
     }
 }

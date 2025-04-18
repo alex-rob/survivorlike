@@ -12,7 +12,7 @@ public partial class Beam : Weapon
     // Called when the node enters the scene tree for the first time.
     public override void _Ready()
     {
-        CooldownTime = 0.75f;
+        CooldownTime = 4f;
         base._Ready();
     }
 
@@ -39,7 +39,7 @@ public partial class Beam : Weapon
         var aimTarget = GetAimTarget();
 
         var spreadTargets = ControlLib.GetAreaSpreadTargets(Version, SpreadAngle,
-            GetGlobalPosition(), aimTarget);
+            GetGlobalPosition(), aimTarget, true);
 
         foreach (var target in spreadTargets)
         {

@@ -94,7 +94,14 @@ public static class ControlLib
     }
     
     
-    public static List<Vector3> GetFixedSpreadTargets(int num, float degSpread, Vector3 originGlobal, Vector3 targetGlobal)
+    public static List<Vector3> GetFixedSpreadTargets
+        (
+            int num, 
+            float degSpread, 
+            Vector3 originGlobal, 
+            Vector3 targetGlobal,
+            bool forceFirstAtTarget = false
+        )
     {
         float radSpread = DegToRad(degSpread);
         List<Vector3> spreadTargets = [];
@@ -104,8 +111,10 @@ public static class ControlLib
         
         var originToTarget = targetGlobal - originGlobal;
         
-        // If odd # of bullets, first target is the original target. Otherwise, give negative half offset to the first bullet
-        spreadTargets.Add(num % 2 == 1 ? targetGlobal : originToTarget.Rotated(axis, radSpread * -0.5f) + originGlobal);
+        // If odd # of bullets, first target is the original target.
+        // Otherwise, give negative half offset to the first bullet
+        spreadTargets.Add(num % 2 == 1 || forceFirstAtTarget ? targetGlobal 
+            : originToTarget.Rotated(axis, radSpread * -0.5f) + originGlobal);
 
         // keep a ref to the first target relative to the origin point
         var originToTargetZero = spreadTargets[0] - originGlobal;
@@ -123,8 +132,15 @@ public static class ControlLib
         return spreadTargets;
     }
 
-    public static List<Vector3> GetAreaSpreadTargets(int num, float degArea, Vector3 originGlobal, Vector3 targetGlobal)
+    public static List<Vector3> GetAreaSpreadTargets
+        (
+            int num, 
+            float degArea,
+            Vector3 originGlobal, 
+            Vector3 targetGlobal,
+            bool forceFirstAtTarget = false
+        )
     {
-        return GetFixedSpreadTargets(num, degArea/num, originGlobal, targetGlobal);
+        return GetFixedSpreadTargets(num, degArea/num, originGlobal, targetGlobal, forceFirstAtTarget);
     }
 }
