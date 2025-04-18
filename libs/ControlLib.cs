@@ -94,7 +94,7 @@ public static class ControlLib
     }
     
     
-    public static List<Vector3> GetSpreadTargets(int num, float degSpread, Vector3 originGlobal, Vector3 targetGlobal)
+    public static List<Vector3> GetFixedSpreadTargets(int num, float degSpread, Vector3 originGlobal, Vector3 targetGlobal)
     {
         float radSpread = DegToRad(degSpread);
         List<Vector3> spreadTargets = [];
@@ -121,5 +121,10 @@ public static class ControlLib
         }
         
         return spreadTargets;
+    }
+
+    public static List<Vector3> GetAreaSpreadTargets(int num, float degArea, Vector3 originGlobal, Vector3 targetGlobal)
+    {
+        return GetFixedSpreadTargets(num, degArea/num, originGlobal, targetGlobal);
     }
 }
