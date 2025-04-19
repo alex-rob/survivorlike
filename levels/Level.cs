@@ -14,6 +14,9 @@ public partial class Level : Node3D
     private List<EnemyEntity> _enemies = [];
 
     private EnemyEntity _nearestTargetToPlayer;
+    
+    private float _spawnRate = 1f; // TODO make this tied to difficulty over time?
+    private int _maxEnemySpawns = 20f;
 
     [Signal] public delegate void FreeOrphanedEnemiesEventHandler();
 
@@ -32,11 +35,26 @@ public partial class Level : Node3D
         // Find all enemies placed on the map (likely from the editor) and register them
         FindAllChildrenOfClass(this, ref _enemies);
         foreach (var e in _enemies) RegisterEnemy(e);
+
+		// Create a timer that spawns enemeies every _spawnRate interval.
+		var spawnTimer = new Timer();
+		spawnTimer.WaitTime = _spawnRate;
+		spawnTimer.Autostart = True;
+
+		var spawnTimer = new Timer();
+        spawnTimer.WaitTime = _hitScanBaudRate;
+        spawnTimer.Autostart = true;
+        spawnTimer.Timeout += Scan;
+        AddChild(spawnTimer);
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		// TODO _Process
+		// [ ] Come up with formulas that update with scaling difficulty over time
+		// 	   for _spawnRate and _maxEnemySpawns (as well as anything else that
+		// 	   might scale over time  
 	}
 
     public override void _PhysicsProcess(double delta)
